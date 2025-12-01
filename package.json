@@ -1,0 +1,31 @@
+{
+  "name": "mengchain-website",
+  "version": "1.0.0",
+  "description": "蒙链 - 内蒙古区块链社群官网",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mengchain/website.git"
+  },
+  "keywords": [
+    "blockchain",
+    "mengchain",
+    "inner-mongolia",
+    "区块链",
+    "内蒙古",
+    "web3",
+    "community",
+    "static-site"
+  ],
+  "author": "蒙链技术团队 <tech@mengchain.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mengchain/website/issues"
+  },
+  "homepage": "https://mengchain.org"
+}

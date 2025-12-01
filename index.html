@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="蒙链 - 内蒙古区块链社群，致力于推动区块链技术在内蒙古地区的研究、应用与发展">
+    <meta name="keywords" content="蒙链,内蒙古,区块链,区块链社群,区块链技术,去中心化,智能合约">
+    <meta name="author" content="蒙链技术团队">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mengchain.org/">
+    <meta property="og:title" content="蒙链 - 内蒙古区块链社群">
+    <meta property="og:description" content="立足内蒙古，面向全球，推动区块链技术创新与应用发展">
+    <meta property="og:locale" content="zh_CN">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="蒙链 - 内蒙古区块链社群">
+    <meta name="twitter:description" content="立足内蒙古，面向全球，推动区块链技术创新与应用发展">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <title>蒙链 - 内蒙古区块链社群</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <i class="fas fa-link"></i>
+                    <span class="logo-text">蒙链</span>
+                    <span class="logo-subtitle">MengChain</span>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">首页</a></li>
+                    <li><a href="#about" class="nav-link">关于我们</a></li>
+                    <li><a href="#research" class="nav-link">技术研究</a></li>
+                    <li><a href="#ecosystem" class="nav-link">生态系统</a></li>
+                    <li><a href="#news" class="nav-link">社区动态</a></li>
+                    <li><a href="#contact" class="nav-link">加入我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页横幅 -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate-fade-in">蒙链</h1>
+                <h2 class="hero-subtitle animate-fade-in-delay">内蒙古区块链社群</h2>
+                <p class="hero-description animate-fade-in-delay-2">
+                    立足内蒙古，面向全球<br>
+                    推动区块链技术创新与应用发展
+                </p>
+                <div class="hero-buttons animate-fade-in-delay-3">
+                    <a href="#about" class="btn btn-primary">了解更多</a>
+                    <a href="#contact" class="btn btn-secondary">加入社群</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">关于蒙链</h2>
+                <p class="section-subtitle">About MengChain</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的使命</h3>
+                    <p>
+                        蒙链（MengChain）是扎根于内蒙古自治区的专业区块链技术社群，致力于成为连接草原与未来数字经济的桥梁。
+                        我们汇聚了区块链技术专家、研究学者、企业家和技术爱好者，共同探索区块链技术在内蒙古地区的创新应用。
+                    </p>
+                    <p>
+                        作为内蒙古首个大规模区块链技术社群，我们秉承"开放、协作、创新、共享"的理念，
+                        推动区块链技术与传统产业的深度融合，助力内蒙古数字经济转型升级。
+                    </p>
+                    <h3>我们的愿景</h3>
+                    <p>
+                        打造内蒙古区块链技术创新高地，成为北方地区最具影响力的区块链生态社群。
+                        通过技术创新、产业赋能和人才培养，推动区块链技术在农牧业、能源、物流、
+                        政务等领域的广泛应用，为内蒙古经济高质量发展贡献科技力量。
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-number" data-target="5000">0</div>
+                        <div class="stat-label">社群成员</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                        <div class="stat-number" data-target="120">0</div>
+                        <div class="stat-label">技术项目</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-building"></i></div>
+                        <div class="stat-number" data-target="80">0</div>
+                        <div class="stat-label">合作企业</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-number" data-target="200">0</div>
+                        <div class="stat-label">技术活动</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心价值 -->
+    <section class="values">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">核心价值</h2>
+                <p class="section-subtitle">Our Core Values</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>技术创新</h3>
+                    <p>深耕区块链底层技术研究，推动共识算法、智能合约、隐私计算等前沿技术的创新与突破</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>开放协作</h3>
+                    <p>秉持开源开放精神，促进产学研深度合作，构建健康繁荣的区块链技术生态</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>产业赋能</h3>
+                    <p>聚焦区块链技术的实际应用场景，助力传统产业数字化转型和智能化升级</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>人才培养</h3>
+                    <p>建立完善的区块链人才培养体系，为内蒙古输送专业技术人才和创新创业团队</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术研究 -->
+    <section id="research" class="research">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">技术研究方向</h2>
+                <p class="section-subtitle">Research Areas</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="research-content">
+                <div class="research-list">
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>区块链底层架构</h3>
+                            <p>
+                                研究高性能区块链底层架构设计，包括分片技术、跨链通信协议、共识机制优化等核心技术。
+                                探索适合内蒙古产业特点的联盟链和私有链解决方案，提升交易吞吐量和系统可扩展性。
+                            </p>
+                            <ul class="research-topics">
+                                <li>分布式账本技术</li>
+                                <li>共识算法优化（PoW、PoS、PBFT等）</li>
+                                <li>跨链互操作协议</li>
+                                <li>链上数据存储与检索</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>智能合约技术</h3>
+                            <p>
+                                深入研究智能合约的设计、开发与安全审计技术，推动智能合约在金融、供应链、
+                                农牧业溯源等领域的应用。开发符合国内监管要求的智能合约开发框架和工具链。
+                            </p>
+                            <ul class="research-topics">
+                                <li>Solidity/Vyper等合约语言研究</li>
+                                <li>智能合约安全审计技术</li>
+                                <li>形式化验证方法</li>
+                                <li>Gas优化与性能提升</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>隐私计算与数据安全</h3>
+                            <p>
+                                研究零知识证明、安全多方计算、同态加密等隐私保护技术，
+                                保障链上数据隐私的同时实现数据价值流通。探索隐私计算在医疗、政务等敏感数据场景的应用。
+                            </p>
+                            <ul class="research-topics">
+                                <li>零知识证明（zk-SNARKs、zk-STARKs）</li>
+                                <li>安全多方计算（MPC）</li>
+                                <li>同态加密技术</li>
+                                <li>联邦学习与隐私保护</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>数字资产与DeFi</h3>
+                            <p>
+                                探索数字资产发行、流通与管理机制，研究去中心化金融（DeFi）协议和应用。
+                                结合内蒙古资源特色，推动数字化碳资产、能源资产等创新应用。
+                            </p>
+                            <ul class="research-topics">
+                                <li>代币经济学设计</li>
+                                <li>去中心化交易所（DEX）</li>
+                                <li>借贷协议与流动性挖矿</li>
+                                <li>NFT技术与应用</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>区块链+物联网</h3>
+                            <p>
+                                研究区块链与物联网（IoT）的深度融合，构建可信的物联网数据采集与共享网络。
+                                重点关注智慧牧场、智慧能源、智慧物流等内蒙古特色场景。
+                            </p>
+                            <ul class="research-topics">
+                                <li>物联网设备身份认证</li>
+                                <li>边缘计算与链上协同</li>
+                                <li>传感器数据可信存证</li>
+                                <li>设备间自动化交易</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-item">
+                        <div class="research-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="research-text">
+                            <h3>区块链+人工智能</h3>
+                            <p>
+                                探索区块链与人工智能技术的协同创新，研究去中心化AI模型训练、
+                                数据市场、算力共享等前沿方向，推动AI技术的可信化和民主化。
+                            </p>
+                            <ul class="research-topics">
+                                <li>去中心化机器学习</li>
+                                <li>AI模型版权保护</li>
+                                <li>数据标注与交易市场</li>
+                                <li>算力资源共享网络</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生态系统 -->
+    <section id="ecosystem" class="ecosystem">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">生态系统</h2>
+                <p class="section-subtitle">Ecosystem</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="ecosystem-grid">
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>农牧业溯源</h3>
+                    <p>
+                        利用区块链技术为内蒙古优质农畜产品提供全程可追溯服务，
+                        从牧场到餐桌，每一个环节都记录在链，保障食品安全，提升品牌价值。
+                    </p>
+                    <div class="eco-tags">
+                        <span>牛羊肉溯源</span>
+                        <span>乳制品追踪</span>
+                        <span>有机农产品</span>
+                    </div>
+                </div>
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>绿色能源交易</h3>
+                    <p>
+                        构建基于区块链的绿色能源交易平台，促进风能、太阳能等清洁能源的点对点交易，
+                        推动内蒙古能源产业转型升级，助力碳达峰碳中和目标。
+                    </p>
+                    <div class="eco-tags">
+                        <span>碳资产交易</span>
+                        <span>绿电证书</span>
+                        <span>能源溯源</span>
+                    </div>
+                </div>
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-truck"></i></div>
+                    <h3>智慧物流</h3>
+                    <p>
+                        打造区块链物流信息平台，实现货物全程可视化追踪，
+                        提升物流效率，降低运营成本，为中蒙俄经济走廊建设提供技术支撑。
+                    </p>
+                    <div class="eco-tags">
+                        <span>货物追踪</span>
+                        <span>跨境物流</span>
+                        <span>智能仓储</span>
+                    </div>
+                </div>
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-landmark"></i></div>
+                    <h3>政务服务</h3>
+                    <p>
+                        推动区块链技术在政务服务领域的应用，构建可信的电子政务平台，
+                        实现数据共享、证照互认，提升政府治理能力和公共服务水平。
+                    </p>
+                    <div class="eco-tags">
+                        <span>电子证照</span>
+                        <span>数据共享</span>
+                        <span>公开透明</span>
+                    </div>
+                </div>
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-palette"></i></div>
+                    <h3>文化传承</h3>
+                    <p>
+                        利用NFT等区块链技术保护和传承蒙古族传统文化，
+                        为非物质文化遗产、民族艺术品提供数字化确权和版权保护服务。
+                    </p>
+                    <div class="eco-tags">
+                        <span>数字藏品</span>
+                        <span>文化IP</span>
+                        <span>版权保护</span>
+                    </div>
+                </div>
+                <div class="ecosystem-card">
+                    <div class="eco-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>教育培训</h3>
+                    <p>
+                        建立区块链教育培训体系，提供从基础入门到高级开发的全方位课程，
+                        培养本地区块链技术人才，支持创新创业项目孵化。
+                    </p>
+                    <div class="eco-tags">
+                        <span>技术培训</span>
+                        <span>认证体系</span>
+                        <span>项目孵化</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 社区动态 -->
+    <section id="news" class="news">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">社区动态</h2>
+                <p class="section-subtitle">Community News</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-badge">最新</div>
+                    <div class="news-date">2024年11月28日</div>
+                    <h3>蒙链技术峰会2024成功举办</h3>
+                    <p>
+                        2024蒙链技术峰会在呼和浩特圆满落幕，来自全国各地的500余名区块链专家学者、
+                        企业代表齐聚青城，共话区块链技术创新与产业发展。大会发布了多项重要技术成果和合作协议。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">2024年11月15日</div>
+                    <h3>蒙链联盟链平台正式上线</h3>
+                    <p>
+                        经过一年多的研发和测试，蒙链自主研发的企业级联盟链平台正式上线运营。
+                        该平台采用自主可控的底层架构，支持每秒万级交易处理，已有20余家企业接入使用。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">2024年10月30日</div>
+                    <h3>与内蒙古大学签署战略合作协议</h3>
+                    <p>
+                        蒙链与内蒙古大学正式签署战略合作协议，双方将在区块链人才培养、技术研发、
+                        成果转化等方面展开深度合作，共建"区块链技术创新实验室"。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">2024年10月10日</div>
+                    <h3>蒙链农畜产品溯源平台试点成功</h3>
+                    <p>
+                        蒙链农畜产品溯源平台在锡林郭勒盟试点运行取得显著成效，
+                        已为超过100家牧场和企业提供溯源服务，追溯产品覆盖牛羊肉、乳制品等多个品类。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">2024年9月20日</div>
+                    <h3>区块链开发者训练营第三期开营</h3>
+                    <p>
+                        蒙链区块链开发者训练营第三期正式开营，吸引了来自全区各盟市的150余名学员参加。
+                        训练营将提供为期3个月的系统培训，涵盖区块链基础、智能合约开发、DApp开发等内容。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">2024年9月5日</div>
+                    <h3>蒙链开源社区GitHub Star突破5000</h3>
+                    <p>
+                        蒙链开源社区在GitHub上的项目获得广泛关注，累计Star数突破5000，
+                        社区贡献者超过300人。开源项目包括联盟链框架、智能合约库、DApp模板等。
+                    </p>
+                    <a href="#" class="news-link">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 合作伙伴 -->
+    <section class="partners">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">合作伙伴</h2>
+                <p class="section-subtitle">Our Partners</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="partners-categories">
+                <div class="partner-category">
+                    <h3><i class="fas fa-university"></i> 高校科研机构</h3>
+                    <div class="partner-list">
+                        <div class="partner-item">内蒙古大学</div>
+                        <div class="partner-item">内蒙古工业大学</div>
+                        <div class="partner-item">内蒙古科技大学</div>
+                        <div class="partner-item">内蒙古农业大学</div>
+                    </div>
+                </div>
+                <div class="partner-category">
+                    <h3><i class="fas fa-building"></i> 企业机构</h3>
+                    <div class="partner-list">
+                        <div class="partner-item">伊利集团</div>
+                        <div class="partner-item">蒙牛集团</div>
+                        <div class="partner-item">国电投内蒙古公司</div>
+                        <div class="partner-item">内蒙古能源集团</div>
+                    </div>
+                </div>
+                <div class="partner-category">
+                    <h3><i class="fas fa-handshake"></i> 技术社区</h3>
+                    <div class="partner-list">
+                        <div class="partner-item">中国区块链技术创新联盟</div>
+                        <div class="partner-item">北京区块链技术应用协会</div>
+                        <div class="partner-item">以太坊中文社区</div>
+                        <div class="partner-item">超级账本中国工作组</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加入我们 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">加入我们</h2>
+                <p class="section-subtitle">Join Us</p>
+                <div class="title-underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>地址</h4>
+                            <p>内蒙古自治区呼和浩特市赛罕区<br>科技创新中心大厦A座18层</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>邮箱</h4>
+                            <p>contact@mengchain.org<br>tech@mengchain.org</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>电话</h4>
+                            <p>+86 471-1234-5678<br>工作日 9:00-18:00</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-weixin"></i>
+                        <div>
+                            <h4>微信公众号</h4>
+                            <p>蒙链区块链社群<br>MengChain_Official</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <h3>发送消息</h3>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">姓名</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">邮箱</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone">
+                            <label for="phone">电话（可选）</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="subject" name="subject" required>
+                                <option value="">请选择主题</option>
+                                <option value="join">加入社群</option>
+                                <option value="cooperation">商务合作</option>
+                                <option value="technical">技术咨询</option>
+                                <option value="other">其他</option>
+                            </select>
+                            <label for="subject">主题</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">消息内容</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-link"></i>
+                        <span>蒙链</span>
+                    </div>
+                    <p>立足内蒙古，面向全球<br>推动区块链技术创新与应用发展</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#research">技术研究</a></li>
+                        <li><a href="#ecosystem">生态系统</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>社区资源</h4>
+                    <ul>
+                        <li><a href="#">开发文档</a></li>
+                        <li><a href="#">开源项目</a></li>
+                        <li><a href="#">技术博客</a></li>
+                        <li><a href="#">白皮书</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                    </div>
+                    <p class="footer-subscribe">订阅我们的技术周报</p>
+                    <form class="footer-subscribe-form">
+                        <input type="email" placeholder="输入您的邮箱">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 蒙链 - 内蒙古区块链社群. 保留所有权利.</p>
+                <p>
+                    <a href="#">隐私政策</a> | 
+                    <a href="#">服务条款</a> | 
+                    <a href="#">网站地图</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
