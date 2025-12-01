@@ -343,13 +343,22 @@ revealStyle.textContent = `
 document.head.appendChild(revealStyle);
 
 // ==========================================
-// Parallax Effect for Hero Section
+// Parallax Effect for Hero Section (Optimized)
 // ==========================================
+let ticking = false;
+const hero = document.querySelector('.hero');
+
 window.addEventListener('scroll', function() {
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        const scrolled = window.scrollY;
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (!ticking && hero) {
+        window.requestAnimationFrame(function() {
+            const scrolled = window.scrollY;
+            // 只在首屏范围内应用视差效果
+            if (scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            ticking = false;
+        });
+        ticking = true;
     }
 });
 
@@ -388,9 +397,9 @@ if ('IntersectionObserver' in window) {
 // ==========================================
 // Console Welcome Message
 // ==========================================
-console.log('%c🔗 欢迎来到蒙链 - 内蒙古区块链社群', 
+console.log('%c🔗 欢迎来到蒙链 - 内蒙古区块链技术研究社群', 
     'color: #2563eb; font-size: 20px; font-weight: bold;');
-console.log('%c立足内蒙古，面向全球\n推动区块链技术创新与应用发展', 
+console.log('%c专注区块链技术研究与学术交流\n汇聚技术爱好者，共同探索区块链前沿技术', 
     'color: #64748b; font-size: 14px;');
-console.log('%c技术支持: MengChain Tech Team', 
+console.log('%c联系邮箱: ml@nmgbtc.com', 
     'color: #10b981; font-size: 12px;');
