@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mengchain.org/sitemap.xml
+Sitemap: https://nmgbtc.com/sitemap.xml
