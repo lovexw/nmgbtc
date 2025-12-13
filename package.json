@@ -1,7 +1,7 @@
 {
-  "name": "mengchain-website",
+  "name": "monchain-site",
   "version": "1.0.0",
-  "description": "蒙链 - 内蒙古区块链社群官网",
+  "description": "蒙链 MonChain - 信息技术咨询与软件相关服务（第42类）",
   "main": "index.html",
   "scripts": {
     "start": "python3 -m http.server 8000",
@@ -13,19 +13,19 @@
     "url": "https://github.com/mengchain/website.git"
   },
   "keywords": [
-    "blockchain",
+    "monchain",
     "mengchain",
-    "inner-mongolia",
-    "区块链",
-    "内蒙古",
-    "web3",
-    "community",
-    "static-site"
+    "it-consulting",
+    "software",
+    "system-analysis",
+    "信息技术咨询",
+    "软件咨询",
+    "静态网站"
   ],
-  "author": "蒙链技术团队 <tech@mengchain.org>",
+  "author": "蒙链 MonChain <xw@nmgbtc.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mengchain/website/issues"
   },
-  "homepage": "https://mengchain.org"
+  "homepage": "https://nmgbtc.com"
 }

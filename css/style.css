@@ -1103,3 +1103,165 @@ section {
         padding: 50px 0;
     }
 }
+
+/* ==========================================
+   MonChain Service Site Additions
+   ========================================== */
+
+.inline-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.inline-link:hover {
+    color: var(--secondary-color);
+}
+
+.footer .inline-link {
+    color: white;
+}
+
+.callout {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.2rem;
+    border-radius: 12px;
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(37, 99, 235, 0.18);
+}
+
+.callout p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.code-block {
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: #0b1220;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 1.2rem 1.2rem;
+    overflow: auto;
+}
+
+.code-block code {
+    color: #e5e7eb;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.article-footer {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.85;
+}
+
+.btn-solid {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.form-hint {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.75;
+}
+
+.consult-records {
+    margin-top: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.consult-records-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.consult-records-header h4 {
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+
+.consult-records-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.consult-records-actions .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+}
+
+.consult-records-actions .btn.btn-secondary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.consult-records-actions .btn.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.consult-records-table-wrapper {
+    overflow-x: auto;
+}
+
+.consult-records-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 520px;
+}
+
+.consult-records-table th,
+.consult-records-table td {
+    text-align: left;
+    padding: 0.75rem 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.consult-records-table th {
+    font-weight: 600;
+    color: var(--dark-color);
+    background: rgba(248, 250, 252, 0.9);
+}
+
+.consult-records-table td.empty {
+    text-align: center;
+    opacity: 0.75;
+}
+
+.consult-records-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+.consult-footer {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    text-align: center;
+}

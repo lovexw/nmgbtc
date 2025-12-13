@@ -1,36 +1,43 @@
 // ==========================================
-// Navigation & Scroll Effects
+// Navigation, Scroll Effects & Utilities
 // ==========================================
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
     const backToTop = document.getElementById('backToTop');
-    
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+
+    function setNavbarState() {
+        if (!navbar) return;
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
-        // Back to top button
+
+        if (!backToTop) return;
         if (window.scrollY > 300) {
             backToTop.classList.add('visible');
         } else {
             backToTop.classList.remove('visible');
         }
-    });
-    
-    // Mobile menu toggle
-    navToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        
-        // Animate hamburger icon
+    }
+
+    window.addEventListener('scroll', setNavbarState);
+    setNavbarState();
+
+    function toggleMobileMenu(forceOpen) {
+        if (!navMenu || !navToggle) return;
+
+        const nextState = typeof forceOpen === 'boolean' ? forceOpen : !navMenu.classList.contains('active');
+        navMenu.classList.toggle('active', nextState);
+
         const spans = navToggle.querySelectorAll('span');
-        if (navMenu.classList.contains('active')) {
+        if (spans.length < 3) return;
+
+        if (nextState) {
             spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
             spans[1].style.opacity = '0';
             spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
@@ -39,201 +46,303 @@ document.addEventListener('DOMContentLoaded', function() {
             spans[1].style.opacity = '1';
             spans[2].style.transform = 'none';
         }
-    });
-    
-    // Close mobile menu on link click
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            const spans = navToggle.querySelectorAll('span');
-            spans[0].style.transform = 'none';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'none';
+    }
+
+    if (navToggle) {
+        navToggle.addEventListener('click', function () {
+            toggleMobileMenu();
         });
-    });
-    
-    // Smooth scroll for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+
+        navToggle.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
             }
-            
-            // Update active link
+        });
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (!targetId || !targetId.startsWith('#')) return;
+
+            const targetEl = document.querySelector(targetId);
+            if (!targetEl) return;
+
+            e.preventDefault();
+
+            const offsetTop = targetEl.offsetTop - 70;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+
             navLinks.forEach(l => l.classList.remove('active'));
             this.classList.add('active');
+
+            toggleMobileMenu(false);
         });
     });
-    
-    // Back to top button
-    backToTop.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+
+    if (backToTop) {
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
-    });
-    
-    // Update active nav link on scroll
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', function() {
+    }
+
+    const sections = document.querySelectorAll('section[id], footer[id]');
+    window.addEventListener('scroll', function () {
         let current = '';
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= sectionTop - 100) {
-                current = section.getAttribute('id');
+            if (window.scrollY >= sectionTop - 120) {
+                current = section.getAttribute('id') || '';
             }
         });
-        
+
+        if (!current) return;
+
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
+            link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
         });
     });
-});
 
-// ==========================================
-// Animated Counter for Statistics
-// ==========================================
-function animateCounter(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = value.toLocaleString();
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
-// Intersection Observer for counter animation
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
-
-const statsObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statNumbers = entry.target.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                const target = parseInt(stat.getAttribute('data-target'));
-                animateCounter(stat, 0, target, 2000);
+    // Fade-in observer
+    if ('IntersectionObserver' in window) {
+        const fadeInObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    fadeInObserver.unobserve(entry.target);
+                }
             });
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
 
-// Observe stats section
-const aboutSection = document.querySelector('.about');
-if (aboutSection) {
-    statsObserver.observe(aboutSection);
+        const fadeElements = document.querySelectorAll(
+            '.value-card, .research-item, .ecosystem-card, .contact-item, .consult-records'
+        );
+
+        fadeElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(24px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeInObserver.observe(el);
+        });
+    }
+
+    // Consult form handling
+    setupConsultForm();
+
+    // Footer year
+    const footerYear = document.getElementById('footerYear');
+    if (footerYear) footerYear.textContent = String(new Date().getFullYear());
+});
+
+// ==========================================
+// Consult Form Storage & Mailto
+// ==========================================
+
+const CONSULT_STORAGE_KEY = 'monchain_consult_records_v1';
+
+function safeJsonParse(value, fallback) {
+    try {
+        return JSON.parse(value);
+    } catch {
+        return fallback;
+    }
 }
 
-// ==========================================
-// Intersection Observer for Fade-in Animations
-// ==========================================
-const fadeInObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
+function readConsultRecords() {
+    const raw = localStorage.getItem(CONSULT_STORAGE_KEY);
+    const parsed = safeJsonParse(raw, []);
+    return Array.isArray(parsed) ? parsed : [];
+}
+
+function writeConsultRecords(records) {
+    localStorage.setItem(CONSULT_STORAGE_KEY, JSON.stringify(records));
+}
+
+function formatDateTime(iso) {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return d.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
     });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px'
-});
+}
 
-// Apply fade-in effect to various elements
-const fadeElements = document.querySelectorAll(
-    '.value-card, .research-item, .ecosystem-card, .news-card, .partner-category'
-);
+function buildConsultMailto(record) {
+    const subject = `蒙链 MonChain 信息技术咨询申请 - ${record.type}`;
 
-fadeElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    fadeInObserver.observe(el);
-});
+    const bodyLines = [
+        '【蒙链 MonChain 信息技术咨询申请】',
+        '',
+        `提交时间：${formatDateTime(record.submittedAt)}`,
+        `姓名：${record.name}`,
+        `邮箱：${record.email}`,
+        `咨询类型：${record.type}`,
+        '',
+        '咨询内容：',
+        record.content,
+        '',
+        '—',
+        '本邮件由 nmgbtc.com 网站表单生成。'
+    ];
 
-// ==========================================
-// Contact Form Handling
-// ==========================================
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    const body = bodyLines.join('\n');
+
+    return `mailto:xw@nmgbtc.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function renderConsultRecords() {
+    const tbody = document.getElementById('consultRecordsBody');
+    if (!tbody) return;
+
+    const records = readConsultRecords();
+
+    if (records.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="empty">暂无记录</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = records
+        .slice(0, 20)
+        .map(r => {
+            return `
+                <tr>
+                    <td>${escapeHtml(formatDateTime(r.submittedAt))}</td>
+                    <td>${escapeHtml(r.name)}</td>
+                    <td>${escapeHtml(r.email)}</td>
+                    <td>${escapeHtml(r.type)}</td>
+                </tr>
+            `;
+        })
+        .join('');
+}
+
+function setupConsultForm() {
+    const consultForm = document.getElementById('consultForm');
+    if (!consultForm) return;
+
+    const downloadBtn = document.getElementById('downloadRecordsBtn');
+    const clearBtn = document.getElementById('clearRecordsBtn');
+
+    renderConsultRecords();
+
+    consultForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
+
+        const name = document.getElementById('consultName')?.value?.trim() || '';
+        const email = document.getElementById('consultEmail')?.value?.trim() || '';
+        const type = document.getElementById('consultType')?.value || '';
+        const content = document.getElementById('consultContent')?.value?.trim() || '';
+
+        if (!name || !email || !type || !content) {
+            showNotification('请完整填写表单信息。', 'info');
+            return;
+        }
+
+        const record = {
+            id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+            submittedAt: new Date().toISOString(),
+            name,
+            email,
+            type,
+            content
         };
-        
-        // Show success message
-        showNotification('感谢您的留言！我们会尽快与您联系。', 'success');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // In a real application, you would send this data to a server
-        console.log('Form submitted:', formData);
+
+        const records = readConsultRecords();
+        records.unshift(record);
+        writeConsultRecords(records.slice(0, 200));
+
+        renderConsultRecords();
+        consultForm.reset();
+
+        showNotification('已保存记录，正在生成邮件草稿…', 'success');
+        window.location.href = buildConsultMailto(record);
     });
+
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            const records = readConsultRecords();
+            if (!records.length) {
+                showNotification('暂无可下载记录。', 'info');
+                return;
+            }
+
+            const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `monchain-consult-records-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+
+            URL.revokeObjectURL(url);
+            showNotification('已开始下载记录。', 'success');
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+            const hasRecords = readConsultRecords().length > 0;
+            if (!hasRecords) {
+                showNotification('暂无需要清空的记录。', 'info');
+                return;
+            }
+
+            const ok = window.confirm('确认清空当前浏览器的所有咨询记录？（此操作不可撤销）');
+            if (!ok) return;
+
+            localStorage.removeItem(CONSULT_STORAGE_KEY);
+            renderConsultRecords();
+            showNotification('已清空本地记录。', 'success');
+        });
+    }
 }
 
-// Newsletter subscription
-const subscribeForm = document.querySelector('.footer-subscribe-form');
-if (subscribeForm) {
-    subscribeForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="email"]').value;
-        
-        if (email) {
-            showNotification('订阅成功！感谢您关注蒙链。', 'success');
-            this.reset();
-        }
-    });
+function escapeHtml(str) {
+    return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
 }
 
 // ==========================================
-// Notification System
+// Notification
 // ==========================================
+
 function showNotification(message, type = 'info') {
-    // Remove existing notifications
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
         existingNotification.remove();
     }
-    
-    // Create notification element
+
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
         <div class="notification-content">
             <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-            <span>${message}</span>
+            <span>${escapeHtml(message)}</span>
         </div>
     `;
-    
-    // Add styles
+
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -245,31 +354,19 @@ function showNotification(message, type = 'info') {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         z-index: 10000;
         animation: slideInRight 0.5s ease;
-        min-width: 300px;
+        min-width: 280px;
+        max-width: 420px;
     `;
-    
-    // Add animation
+
     const style = document.createElement('style');
     style.textContent = `
         @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
         @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
         }
         .notification-content {
             display: flex;
@@ -277,129 +374,20 @@ function showNotification(message, type = 'info') {
             gap: 1rem;
         }
         .notification-content i {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
     `;
     document.head.appendChild(style);
-    
-    // Add to page
+
     document.body.appendChild(notification);
-    
-    // Remove after 4 seconds
+
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.5s ease';
         setTimeout(() => notification.remove(), 500);
-    }, 4000);
+    }, 3500);
 }
 
-// ==========================================
-// Dynamic Year in Footer
-// ==========================================
-const currentYear = new Date().getFullYear();
-const footerText = document.querySelector('.footer-bottom p');
-if (footerText && footerText.textContent.includes('2024')) {
-    footerText.textContent = footerText.textContent.replace('2024', currentYear);
-}
-
-// ==========================================
-// Scroll Reveal Effect
-// ==========================================
-function revealOnScroll() {
-    const reveals = document.querySelectorAll('.stat-card, .value-card, .ecosystem-card');
-    
-    reveals.forEach((element, index) => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
-            element.style.animationDelay = `${index * 0.1}s`;
-            element.classList.add('reveal-active');
-        }
-    });
-}
-
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll(); // Initial check
-
-// Add reveal animation styles
-const revealStyle = document.createElement('style');
-revealStyle.textContent = `
-    .reveal-active {
-        animation: revealFadeIn 0.8s ease forwards;
-    }
-    
-    @keyframes revealFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(revealStyle);
-
-// ==========================================
-// Parallax Effect for Hero Section (Optimized)
-// ==========================================
-let ticking = false;
-const hero = document.querySelector('.hero');
-
-window.addEventListener('scroll', function() {
-    if (!ticking && hero) {
-        window.requestAnimationFrame(function() {
-            const scrolled = window.scrollY;
-            // 只在首屏范围内应用视差效果
-            if (scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// ==========================================
-// Add hover effect sound (optional)
-// ==========================================
-const cards = document.querySelectorAll(
-    '.stat-card, .value-card, .research-item, .ecosystem-card, .news-card'
-);
-
-cards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
-
-// ==========================================
-// Lazy Loading Images (if any are added)
-// ==========================================
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.add('loaded');
-                observer.unobserve(img);
-            }
-        });
-    });
-    
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    lazyImages.forEach(img => imageObserver.observe(img));
-}
-
-// ==========================================
-// Console Welcome Message
-// ==========================================
-console.log('%c🔗 欢迎来到蒙链 - 内蒙古区块链技术研究社群', 
-    'color: #2563eb; font-size: 20px; font-weight: bold;');
-console.log('%c专注区块链技术研究与学术交流\n汇聚技术爱好者，共同探索区块链前沿技术', 
-    'color: #64748b; font-size: 14px;');
-console.log('%c联系邮箱: ml@nmgbtc.com', 
-    'color: #10b981; font-size: 12px;');
+// Console Message
+console.log('%c蒙链 MonChain - 技术服务与信息站', 'color: #2563eb; font-size: 18px; font-weight: bold;');
+console.log('%c信息技术咨询 · 软件与系统相关服务（第42类）', 'color: #64748b; font-size: 13px;');
+console.log('%c联系邮箱: xw@nmgbtc.com', 'color: #10b981; font-size: 12px;');
