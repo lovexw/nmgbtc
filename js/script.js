@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         const fadeElements = document.querySelectorAll(
-            '.value-card, .research-item, .ecosystem-card, .contact-item, .consult-records'
+            '.value-card, .research-item, .ecosystem-card, .contact-item, .stat-card'
         );
 
         fadeElements.forEach(el => {
@@ -146,187 +146,35 @@ document.addEventListener('DOMContentLoaded', function () {
     if (footerYear) footerYear.textContent = String(new Date().getFullYear());
 });
 
-// ==========================================
-// Consult Form Storage & Mailto
-// ==========================================
-
-const CONSULT_STORAGE_KEY = 'monchain_consult_records_v1';
-
-function safeJsonParse(value, fallback) {
-    try {
-        return JSON.parse(value);
-    } catch {
-        return fallback;
-    }
-}
-
-function readConsultRecords() {
-    const raw = localStorage.getItem(CONSULT_STORAGE_KEY);
-    const parsed = safeJsonParse(raw, []);
-    return Array.isArray(parsed) ? parsed : [];
-}
-
-function writeConsultRecords(records) {
-    localStorage.setItem(CONSULT_STORAGE_KEY, JSON.stringify(records));
-}
-
-function formatDateTime(iso) {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    });
-}
-
-function buildConsultMailto(record) {
-    const subject = `蒙链 MonChain 信息技术咨询申请 - ${record.type}`;
-
-    const bodyLines = [
-        '【蒙链 MonChain 信息技术咨询申请】',
-        '',
-        `提交时间：${formatDateTime(record.submittedAt)}`,
-        `姓名：${record.name}`,
-        `邮箱：${record.email}`,
-        `咨询类型：${record.type}`,
-        '',
-        '咨询内容：',
-        record.content,
-        '',
-        '—',
-        '本邮件由 nmgbtc.com 网站表单生成。'
-    ];
-
-    const body = bodyLines.join('\n');
-
-    return `mailto:xw@nmgbtc.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
-function renderConsultRecords() {
-    const tbody = document.getElementById('consultRecordsBody');
-    if (!tbody) return;
-
-    const records = readConsultRecords();
-
-    if (records.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="empty">暂无记录</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = records
-        .slice(0, 20)
-        .map(r => {
-            return `
-                <tr>
-                    <td>${escapeHtml(formatDateTime(r.submittedAt))}</td>
-                    <td>${escapeHtml(r.name)}</td>
-                    <td>${escapeHtml(r.email)}</td>
-                    <td>${escapeHtml(r.type)}</td>
-                </tr>
-            `;
-        })
-        .join('');
-}
-
 function setupConsultForm() {
     const consultForm = document.getElementById('consultForm');
     if (!consultForm) return;
-
-    const downloadBtn = document.getElementById('downloadRecordsBtn');
-    const clearBtn = document.getElementById('clearRecordsBtn');
-
-    renderConsultRecords();
 
     consultForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const name = document.getElementById('consultName')?.value?.trim() || '';
         const email = document.getElementById('consultEmail')?.value?.trim() || '';
-        const type = document.getElementById('consultType')?.value || '';
         const content = document.getElementById('consultContent')?.value?.trim() || '';
 
-        if (!name || !email || !type || !content) {
+        if (!name || !email || !content) {
             showNotification('请完整填写表单信息。', 'info');
             return;
         }
 
-        const record = {
-            id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
-            submittedAt: new Date().toISOString(),
-            name,
-            email,
-            type,
-            content
-        };
+        const subject = `蒙链社区留言 - ${name}`;
+        const body = `姓名：${name}\n邮箱：${email}\n\n留言内容：\n${content}\n\n(来自 nmgbtc.com)`;
 
-        const records = readConsultRecords();
-        records.unshift(record);
-        writeConsultRecords(records.slice(0, 200));
-
-        renderConsultRecords();
-        consultForm.reset();
-
-        showNotification('已保存记录，正在生成邮件草稿…', 'success');
-        window.location.href = buildConsultMailto(record);
+        const mailtoLink = `mailto:xw@nmgbtc.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        showNotification('正在打开邮件客户端...', 'success');
+        
+        // Short delay to let the user see the notification
+        setTimeout(() => {
+            window.location.href = mailtoLink;
+        }, 1000);
     });
-
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', function () {
-            const records = readConsultRecords();
-            if (!records.length) {
-                showNotification('暂无可下载记录。', 'info');
-                return;
-            }
-
-            const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `monchain-consult-records-${new Date().toISOString().slice(0, 10)}.json`;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            URL.revokeObjectURL(url);
-            showNotification('已开始下载记录。', 'success');
-        });
-    }
-
-    if (clearBtn) {
-        clearBtn.addEventListener('click', function () {
-            const hasRecords = readConsultRecords().length > 0;
-            if (!hasRecords) {
-                showNotification('暂无需要清空的记录。', 'info');
-                return;
-            }
-
-            const ok = window.confirm('确认清空当前浏览器的所有咨询记录？（此操作不可撤销）');
-            if (!ok) return;
-
-            localStorage.removeItem(CONSULT_STORAGE_KEY);
-            renderConsultRecords();
-            showNotification('已清空本地记录。', 'success');
-        });
-    }
 }
-
-function escapeHtml(str) {
-    return String(str)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-}
-
-// ==========================================
-// Notification
-// ==========================================
 
 function showNotification(message, type = 'info') {
     const existingNotification = document.querySelector('.notification');
@@ -336,10 +184,13 @@ function showNotification(message, type = 'info') {
 
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
+    // Simple sanitization
+    const safeMessage = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    
     notification.innerHTML = `
         <div class="notification-content">
             <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
-            <span>${escapeHtml(message)}</span>
+            <span>${safeMessage}</span>
         </div>
     `;
 
@@ -358,26 +209,30 @@ function showNotification(message, type = 'info') {
         max-width: 420px;
     `;
 
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideInRight {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
-        }
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .notification-content i {
-            font-size: 1.4rem;
-        }
-    `;
-    document.head.appendChild(style);
+    // Ensure keyframes exist (only needs to be added once, but safe to add if checking)
+    if (!document.getElementById('notification-style')) {
+        const style = document.createElement('style');
+        style.id = 'notification-style';
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+            .notification-content i {
+                font-size: 1.4rem;
+            }
+        `;
+        document.head.appendChild(style);
+    }
 
     document.body.appendChild(notification);
 
@@ -388,6 +243,5 @@ function showNotification(message, type = 'info') {
 }
 
 // Console Message
-console.log('%c蒙链 MonChain - 技术服务与信息站', 'color: #2563eb; font-size: 18px; font-weight: bold;');
-console.log('%c信息技术咨询 · 软件与系统相关服务（第42类）', 'color: #64748b; font-size: 13px;');
-console.log('%c联系邮箱: xw@nmgbtc.com', 'color: #10b981; font-size: 12px;');
+console.log('%c蒙链 Mengchain - 内蒙古区块链社群', 'color: #2563eb; font-size: 18px; font-weight: bold;');
+console.log('%c致力于推动区域技术发展', 'color: #64748b; font-size: 13px;');

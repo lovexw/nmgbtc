@@ -1,7 +1,7 @@
 {
-  "name": "蒙链 MonChain - 技术服务与信息站",
+  "name": "蒙链 Mengchain - 内蒙古区块链社群",
   "short_name": "蒙链",
-  "description": "信息技术咨询、计算机系统分析、软件设计与软件相关咨询（第42类）。通过网站持续发布技术信息与提供咨询申请。",
+  "description": "内蒙古区块链技术社群，致力于推动区块链技术在内蒙古的应用与发展，关注零知识证明、食品安全溯源等前沿领域。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -21,7 +21,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["technology", "software", "it-consulting"],
+  "categories": ["technology", "community", "blockchain"],
   "lang": "zh-CN",
   "dir": "ltr"
 }
